@@ -1,0 +1,190 @@
+# Instagram Reels Music Trend Intelligence Agent - Configuration
+# All API keys and settings configurable here without touching code
+
+# ============================================================
+# BUDGET CONFIGURATION
+# ============================================================
+budget:
+  daily_ceiling_cents: 500        # $5 hard ceiling
+  daily_target_cents: 300         # $3 daily target
+  monthly_ceiling_dollars: 50     # $50 monthly ceiling
+  alert_threshold_pct: 0.80       # Alert at 80% of daily budget used
+
+# ============================================================
+# API KEYS (replace with actual keys)
+# ============================================================
+api_keys:
+  anthropic: ""                   # Set via ANTHROPIC_API_KEY env var or here
+  apify: ""                       # Set via APIFY_API_KEY env var or here
+  rapidapi: ""                    # Set via RAPIDAPI_KEY env var or here
+
+# ============================================================
+# SCRAPER CONFIGURATION
+# ============================================================
+scrapers:
+  # Daily target reels across all sources
+  daily_target_reels: 75
+  min_reels_acceptable: 20        # Minimum to still run analysis
+
+  # Source rotation order (priority: free first)
+  source_priority:
+    - instaloader
+    - apify
+    - rapidapi
+    - google_fallback
+
+  instaloader:
+    enabled: true
+    cost_per_request_cents: 0
+    daily_quota: 1000             # Self-imposed rate limit
+    requests_per_hashtag: 15      # Reels per hashtag per run
+    sleep_between_requests: 3     # Seconds between requests
+    max_retries: 3
+    retry_delay: 10               # Seconds between retries
+
+  apify:
+    enabled: true
+    actor_id: "apify/instagram-scraper"
+    cost_per_request_cents: 0     # Free tier
+    free_runs_per_month: 30
+    results_per_run: 50
+    timeout_seconds: 300
+
+  rapidapi:
+    enabled: true
+    host: "instagram-scraper-api2.p.rapidapi.com"
+    cost_per_request_cents: 0     # Free tier
+    free_requests_per_month: 500
+    results_per_request: 12
+
+  google_fallback:
+    enabled: true
+    cost_per_request_cents: 0
+    requests_per_day: 100         # Conservative limit
+    results_per_query: 10
+    sleep_between_requests: 5
+
+# ============================================================
+# HASHTAG SEEDS
+# ============================================================
+hashtags:
+  dj_mixing:
+    - djlife
+    - djset
+    - djmix
+    - scratching
+    - turntablism
+    - beatmatch
+    - djculture
+    - clubdj
+    - techno
+    - housemusic
+
+  concerts_festivals:
+    - livemusic
+    - festivalseason
+    - concertvibes
+    - musicfestival
+    - rave
+    - edm
+    - festivallife
+    - concertphotography
+    - musicfest
+    - openair
+
+  production:
+    - musicproduction
+    - beatmaking
+    - studiolife
+    - producerlife
+    - ableton
+    - flstudio
+    - synthesizer
+    - samplepacks
+    - musicproducer
+    - recordingstudio
+
+  viral_music:
+    - newmusic
+    - viralmusic
+    - trending
+    - musictrends
+    - indiemusic
+    - undergroundmusic
+    - musicdiscovery
+
+# ============================================================
+# ANALYSIS CONFIGURATION
+# ============================================================
+analysis:
+  # Tier 1 local analysis
+  tier1:
+    min_engagement_velocity: 10   # Minimum likes+comments/hour to consider
+    min_followers_for_signal: 1000
+    tfidf_top_keywords: 20
+    hashtag_cooccurrence_min: 3   # Min appearances to track co-occurrence
+
+  # Virality scoring weights (must sum to 1.0)
+  virality_weights:
+    engagement_velocity: 0.40
+    audio_reuse_count: 0.30
+    hashtag_trend_score: 0.30
+
+  # Tier 2 LLM analysis
+  tier2:
+    model: "claude-haiku-4-5-20251001"
+    top_reels_to_analyze: 15
+    max_input_tokens: 8000
+    max_output_tokens: 3000
+    use_batch_api: true           # 50% cost reduction
+    historical_context_days: 7
+    temperature: 0.3              # Lower = more consistent trend analysis
+
+# ============================================================
+# ACCOUNT DISCOVERY CONFIGURATION
+# ============================================================
+account_discovery:
+  min_followers: 10000
+  min_appearances_to_add: 3      # Must appear in 3+ top posts to auto-add
+  max_monitored_accounts: 200    # Cap on auto-discovered accounts
+  refresh_interval_days: 7       # Re-evaluate accounts weekly
+
+# ============================================================
+# OUTPUT CONFIGURATION
+# ============================================================
+output:
+  csv_directory: "outputs/"
+  log_directory: "logs/"
+  data_directory: "data/"
+
+  # CSV column configuration
+  daily_csv_columns:
+    - date
+    - trend_name
+    - category
+    - description
+    - velocity
+    - confidence
+    - marketing_angle
+    - suggested_hashtags
+    - suggested_audio
+    - content_format
+    - shelf_life_days
+    - evidence_reel_count
+    - avg_engagement_velocity
+
+  cumulative_log_extra_columns:
+    - first_detected
+    - last_seen
+    - days_active
+    - peak_confidence
+    - peak_velocity
+    - current_status
+
+# ============================================================
+# LOGGING
+# ============================================================
+logging:
+  level: "INFO"
+  max_log_files: 30              # Keep 30 days of logs
+  log_format: "%(asctime)s [%(levelname)s] %(name)s: %(message)s"

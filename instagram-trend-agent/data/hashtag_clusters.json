@@ -1,0 +1,25 @@
+{
+  "_meta": "Hashtag co-occurrence graph. Keys are hashtags, values are dicts of co-occurring hashtags with frequency scores.",
+  "_updated": "initialized",
+  "djlife": {
+    "djset": 5.0,
+    "djmix": 4.0,
+    "beatmatch": 3.0,
+    "housemusic": 3.0,
+    "techno": 2.5
+  },
+  "musicproduction": {
+    "beatmaking": 5.0,
+    "studiolife": 4.5,
+    "producerlife": 4.0,
+    "ableton": 3.5,
+    "flstudio": 3.0
+  },
+  "festivalseason": {
+    "edm": 5.0,
+    "rave": 4.0,
+    "livemusic": 4.0,
+    "musicfestival": 4.5,
+    "concertvibes": 3.5
+  }
+}

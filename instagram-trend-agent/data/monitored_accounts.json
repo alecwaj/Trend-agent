@@ -1,0 +1,17 @@
+{
+  "accounts": [
+    {"username": "defected", "notes": "DJ/house music label", "manually_added": true},
+    {"username": "toolroom", "notes": "Tech house label", "manually_added": true},
+    {"username": "drumcoderecords", "notes": "Techno label", "manually_added": true},
+    {"username": "beatport", "notes": "Electronic music platform", "manually_added": true},
+    {"username": "pioneerdjofficial", "notes": "DJ equipment brand", "manually_added": true},
+    {"username": "nativeinstruments", "notes": "Music production software", "manually_added": true}
+  ],
+  "auto_discovered": [],
+  "last_updated": "",
+  "config": {
+    "min_followers": 10000,
+    "min_appearances_to_add": 3,
+    "max_accounts": 200
+  }
+}
