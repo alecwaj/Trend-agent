@@ -21,7 +21,7 @@ def check_budget() -> str:
     budget = BudgetTracker(config, get_data_dir())
     summary = budget.summary()
     summary["remaining_cents"] = budget.remaining_cents()
-    summary["can_continue"] = budget.can_spend(10)
+    summary["can_continue"] = budget.can_spend(20)  # ~$0.15/Sonnet call + buffer
     return json.dumps(summary)
 
 

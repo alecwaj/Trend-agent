@@ -22,9 +22,9 @@ api_keys:
 # SCRAPER CONFIGURATION
 # ============================================================
 scrapers:
-  # Daily target reels across all sources
-  daily_target_reels: 75
-  min_reels_acceptable: 20        # Minimum to still run analysis
+  # Per-run target — agent runs every 2 hours, so 40 fresh reels/run is right-sized
+  daily_target_reels: 40
+  min_reels_acceptable: 10        # Lower threshold for mid-day runs with fewer fresh reels
 
   # Source rotation order (priority: free first)
   source_priority:
@@ -133,11 +133,11 @@ analysis:
   # Tier 2 LLM analysis
   tier2:
     model: "claude-sonnet-4-6"
-    top_reels_to_analyze: 15
-    max_input_tokens: 8000
-    max_output_tokens: 3000
-    use_batch_api: true           # 50% cost reduction
-    historical_context_days: 7
+    top_reels_to_analyze: 25      # Up from 15 — more signal per run
+    max_input_tokens: 15000       # Up from 8000 — room for richer context
+    max_output_tokens: 5000       # Up from 3000 — more detailed trend output
+    use_batch_api: false          # Not used by LangChain agent (direct API)
+    historical_context_days: 14   # Up from 7 — two weeks of trend memory
     temperature: 0.3              # Lower = more consistent trend analysis
 
 # ============================================================
