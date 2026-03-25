@@ -7,6 +7,11 @@ pyyaml>=6.0
 requests>=2.31.0
 python-dotenv>=1.0.0
 
+# LangChain (agent framework)
+langchain>=0.3.0
+langchain-core>=0.3.0
+langchain-anthropic>=0.3.0
+
 # Scraping
 instaloader>=4.10.0
 beautifulsoup4>=4.12.0

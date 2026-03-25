@@ -5,9 +5,9 @@
 # BUDGET CONFIGURATION
 # ============================================================
 budget:
-  daily_ceiling_cents: 500        # $5 hard ceiling
-  daily_target_cents: 300         # $3 daily target
-  monthly_ceiling_dollars: 50     # $50 monthly ceiling
+  daily_ceiling_cents: 200        # $2 hard ceiling
+  daily_target_cents: 200         # $2 daily target
+  monthly_ceiling_dollars: 60     # $2/day × 30 days
   alert_threshold_pct: 0.80       # Alert at 80% of daily budget used
 
 # ============================================================
@@ -132,7 +132,7 @@ analysis:
 
   # Tier 2 LLM analysis
   tier2:
-    model: "claude-haiku-4-5-20251001"
+    model: "claude-sonnet-4-6"
     top_reels_to_analyze: 15
     max_input_tokens: 8000
     max_output_tokens: 3000
